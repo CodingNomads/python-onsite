@@ -5,4 +5,9 @@ Make sure to catch at least two possible Exceptions (FileNotFoundError and Value
 with specific except statements, and continue to do the calculation
 only if neither of them applies.
 
+To test, try running it on:
+- 'integers.txt' (should work)
+- 'corrupted_integers.txt' (should fail with ValueError)
+- 'nonexistent.txt' (should fail with FilenNotFoundError)
+
 '''
