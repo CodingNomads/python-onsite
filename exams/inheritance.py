@@ -12,10 +12,11 @@ CLASSES AND INHERITANCE
     that overwrites the dunder init method of Movie and adds another
     instance variable called "pg" that is set by default to the number 13.
 
-5) EXTRA: If you finish early, use the time to practice flushing out these
-    classes and white-boarding code. What attributes could a Movie class
-    contain? What methods? What tricks can you use through inheritance?
-    Any class attributes you could add?
+
+BONUS CHALLENGE: Practice flushing out these classes.
+- What attributes could a Movie class contain? What methods?
+- What tricks can you use through inheritance?
+- Any class attributes you could add?
 
 '''
 
