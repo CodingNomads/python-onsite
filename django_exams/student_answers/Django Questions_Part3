@@ -1,0 +1,181 @@
+* What makes an API a REST API?
+
+  A RESTful API is an application program interface (API) that uses HTTP
+  requests to GET, PUT, POST and DELETE data.
+
+* When and how do you cache stuff? What does it mean?
+
+  To cache something is to save the result of an expensive calculation
+  so that you don't have to perform the calculation again the next time.
+
+  You cache stuff when it is going to be accessed repeatedly.
+
+  Cached data can live in a database, in the filesystem or directly in memory.
+
+  For Django - put this in your settings file.
+
+  MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
+    ]
+
+* How do HTML forms work? What's their syntax, what are they used for?
+
+  The HTML <form> element defines a form that is used to collect user input.
+
+  <form>
+  .
+  form elements
+  .
+  </form>
+
+* What are some Django best practices (in terms of performance, organization of Apps,
+  organization of static and media files, security)?
+
+----------------------
+Resources
+  - https://docs.djangoproject.com/en/2.1/misc/design-philosophies/
+  - https://django-best-practices.readthedocs.io/en/latest/
+  - https://docs.djangoproject.com/en/2.1/misc/design-philosophies/
+----------------------
+
+Loose coupling
+  A fundamental goal of Django’s stack is loose coupling and tight cohesion.
+  The various layers of the framework shouldn’t “know” about each other unless
+  absolutely necessary.
+
+  For example, the template system knows nothing about Web requests, the database
+  layer knows nothing about data display and the view system doesn’t care which
+  template system a programmer uses.
+
+  Although Django comes with a full stack for convenience, the pieces of the stack
+  are independent of another wherever possible.
+
+Less code
+  Django apps should use as little code as possible; they should lack boilerplate.
+  Django should take full advantage of Python’s dynamic capabilities, such as introspection.
+
+Quick development
+  The point of a Web framework in the 21st century is to make the tedious aspects of Web
+  development fast. Django should allow for incredibly quick Web development.
+
+Don’t repeat yourself (DRY)¶
+  Every distinct concept and/or piece of data should live in one, and only one, place.
+  Redundancy is bad. Normalization is good.
+
+  The framework, within reason, should deduce as much as possible from as little as possible.
+
+* What is "middleware"?
+
+  ---------------
+  From: https://docs.djangoproject.com/en/2.1/topics/http/middleware/
+  ---------------
+
+  Middleware is a framework of hooks into Django’s request/response processing.
+
+  It’s a light, low-level “plugin” system for globally altering Django’s input or output.
+  Each middleware component is responsible for doing some specific function.
+
+  For example, Django includes a middleware component, AuthenticationMiddleware, that
+  associates users with requests using sessions.
+
+* What is the suggested folder structure for templates? And why is it like that?
+
+  It's recommended to put Templates in the top level of the project template directory
+  unless creating an app that can be used in multiple locations, in which case it's
+  a good idea to include some templates.
+
+* What is a Mixin in Django? How is it used?
+
+A mixin is a special kind of multiple inheritance for classes.
+  - provide a lot of optional features for a class.
+  - use one particular feature in a lot of different classes.
+
+* What does `ugettext_lazy` do? When and where would you use it?
+
+  Utility functions to help you translate your application available in the
+  django.utils.translation module.
+
+* How does Django process a HTTP request? What happens inside of `urls.py` and what do `path()` and `include()` do respectively?
+
+1. Django determines the root URLconf module to use. Ordinarily, this is the value of the ROOT_URLCONF setting,
+   but if the incoming HttpRequest object has a urlconf attribute (set by middleware), its value will be used in place of the ROOT_URLCONF setting.
+
+2. Django loads that Python module and looks for the variable urlpatterns. This should be a Python list of django.urls.path()
+   and/or django.urls.re_path() instances.
+
+3. Django runs through each URL pattern, in order, and stops at the first one that matches the requested URL.
+   Once one of the URL patterns matches, Django imports and calls the given view, which is a simple Python function
+   (or a class-based view). The view gets passed the following arguments:
+      - An instance of HttpRequest.
+      - If the matched URL pattern returned no named groups, then the matches from the
+        regular expression are provided as positional arguments.
+      - The keyword arguments are made up of any named parts matched by the path expression,
+        overridden by any arguments specified in the optional kwargs argument to django.urls.path() or django.urls.re_path().
+
+    If no URL pattern matches, or if an exception is raised during any point in this process, Django invokes an appropriate
+    error-handling view.
+
+* Explain a few of the most common tags in the Django templating language.
+
+  Variables look like this: {{ variable }}
+
+  Filters look like this: {{ name|lower }}
+
+  Tags look like this: {% tag %}. Tags are more complex than variables: Some create text in the output, some control
+  flow by performing loops or logic, and some load external information into the template to be used by later variables.
+
+  To comment-out part of a line in a template, use the comment syntax: {# #}.
+
+* What is `blank=True, null=True` that you might see in a couple of models?
+
+  When defining fields in a django model, there are two ways to say that the field is allowed to be empty.
+  null means it can be empty in the database, and blank says the field can be empty in a form
+
+  blank: determines whether the field should be validated as required or not in forms.
+         False means the form will generate an error if not provide, while True means empty values are allowed.
+
+  null: determines whether the field should be set as NULL or NOT NULL at the DB level.
+        This has nothing to do with form validation.
+
+  Some examples:
+
+  blank=True, null=False would raise an IntegrityError anytime the field was left blank, if it's not a CharField or TextField.
+  Those two fields send '' (empty string) rather than NULL to the DB when empty.
+
+  blank=False, null=True would always require the field to be filled out in all forms(forms will raise  ValidationError on the field),
+  even though the column is allowed to be NULL. However, this only applies to forms. You could manually set the attribute to
+  None and save it outside of a form (in the shell, for example).
+
+* How do you get a recently saved instance of an object? What does `.save()` return?
+
+  Define a custom function....
+
+  def was_published_recently(self):
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
+  or
+
+  object_list = Object.objects.all()
+
+  object.save() - saves the object to the database.
+
+  .save() is a void function with a side effect and no return.
+
+* What happens when you run `python manage.py migrate`?
+
+  Any changes to your Models are applied to the Database schema.
+
+* What are 5 big companies or projects that use Django?
+
+  - Network Optix
+  - Disqus
+  - Instagram
+  - Knight Foundation
+  - MacArthur Foundation
+  - Mozilla
+  - National Geographic
+  - Open Knowledge Foundation
+  - Pinterest
+  - Open Stack

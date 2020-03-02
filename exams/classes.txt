@@ -1,0 +1,15 @@
+WRITE ON PAPER EVERY MORNING
+- recap of last day
+- then walk over it
+
+
+CLASSES AND OOP
+===============
+
+Define a python class that describes a book object.
+
+Every instance of the class should have a title, an author, a total page number, and a current page number (where the reader is at)
+
+Further, define a method that allows a user to read a certain number of pages and updates the current page number accordingly.
+
+Inform the user if they've reached the end of the book.

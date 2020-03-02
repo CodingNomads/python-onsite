@@ -1,4 +1,4 @@
-Here are a couple of alternative Django tutorials to keep sharpening those Django knifes over the weekend (pick what vibes well with you!)  :slightly_smiling_face:
+Here are a couple of Django tutorials to keep sharpening those Django knifes (pick what vibes well with you!) 🙂
 
 * [Django Girls Tutorial](https://tutorial.djangogirls.org/en/)
 * [MDN Django Guide](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django)
