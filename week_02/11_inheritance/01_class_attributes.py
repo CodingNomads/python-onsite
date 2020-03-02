@@ -1,8 +1,8 @@
-
 '''
 Flush out the classes below with the following:
 
-    - Add inheritance so that Class1 is inherited by Class2 and Class2 is inherited by Class3.
+    - Add inheritance so that Class1 has a child class named Class2 and
+    - Class2 is the parent of another class called Class3.
     - Follow the directions in each class to complete the functionality.
 
 
